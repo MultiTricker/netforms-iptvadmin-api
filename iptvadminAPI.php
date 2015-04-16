@@ -334,20 +334,20 @@
 
     /**
      * @param string $partnerid
-     * @param string $MAC
+     * @param string $mac
      * @param string $name
      * @return string JSON
      * @throws \Exception
      */
-    public function addUserStb($partnerid, $MAC, $name = "")
+    public function addUserStb($partnerid, $mac, $name = "")
     {
 
-      $MAC = $this->formatMac($MAC);
+      $mac = $this->formatMac($mac);
 
-      if(!$this->isMac($MAC))
+      if(!$this->isMac($mac))
       {
 
-        throw new \Exception("Invalid MAC address format. Should be 00:00:00:00:00:00, is ".$MAC);
+        throw new \Exception("Invalid MAC address format. Should be 00:00:00:00:00:00, is ".$mac);
 
       }
       else
