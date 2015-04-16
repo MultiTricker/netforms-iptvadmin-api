@@ -30,9 +30,9 @@ Basic PHP class to use iptvadmin API (part of NETFORMS IPTV solution, http://4ne
 
   $iptvadmin->getPackages();
 
-  $iptvadmin->activateUser("ID1", "SPORT");
+  $iptvadmin->activateUserPackage("ID1", "SPORT");
 
-  $iptvadmin->deactivateUser("ID1", "SPORT");
+  $iptvadmin->deactivateUserPackage("ID1", "SPORT");
 
   $iptvadmin->addUserSTB("ID1", "12:34:56:78:90:12", "STB name");
 ```
