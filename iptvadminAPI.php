@@ -25,7 +25,7 @@
     function __construct($URL, $userLogin, $userPassword = "", $printResponse = 0)
     {
 
-      $this->setURL($URL);
+      $this->setUrl($URL);
       $this->setLogin($userLogin);
       $this->setPassword($userPassword);
       $this->setPrintResponse($printResponse);
@@ -38,7 +38,7 @@
      * @param mixed $URL
      * @return $this
      */
-    public function setURL($URL)
+    public function setUrl($URL)
     {
 
       if(substr($URL, -1) != "/")
@@ -82,7 +82,7 @@
     /**
      * @return string JSON
      */
-    public function getURL()
+    public function getUrl()
     {
       return $this->URL;
     }
@@ -116,14 +116,14 @@
      * @param array $parameters
      * @return string JSON
      */
-    public function generateURL($action, $parameters)
+    public function generateApiCall($action, $parameters)
     {
 
       // Add login
       $parameters['login'] = $this->getLogin();
       $parameters['password'] = $this->getPassword();
 
-      return $this->getURL() . $action . "?" . http_build_query($parameters, null, '&', PHP_QUERY_RFC3986);
+      return $this->getUrl() . $action . "?" . http_build_query($parameters, null, '&', PHP_QUERY_RFC3986);
 
     }
 
@@ -131,7 +131,7 @@
      * @param $request
      * @return string JSON
      */
-    public function callAPI($request)
+    public function callApi($request)
     {
 
       // INIT
@@ -163,7 +163,7 @@
      * @param $MAC
      * @return bool
      */
-    public function isMAC($MAC)
+    public function isMac($MAC)
     {
 
       if(preg_match("/([a-fA-F0-9]{2}[:|\-]?){6}/", $MAC))
@@ -181,7 +181,7 @@
      * @param $MAC
      * @return string
      */
-    function formatMAC($MAC)
+    function formatMac($MAC)
     {
 
       return trim(str_replace(["-", ".", ",", "::", ";"], ":", $MAC));
@@ -201,8 +201,8 @@
     public function registerUser($partnerid, $userLogin, $userPassword, $firstName, $familyName, $email = "", $phone = "", $maxDeviceCount = 5, $package)
     {
 
-      $request = $this->generateURL("registeruser", get_defined_vars());
-      $response = $this->callAPI($request);
+      $request = $this->generateApiCall("registeruser", get_defined_vars());
+      $response = $this->callApi($request);
       return $response;
 
     }
@@ -214,8 +214,8 @@
     public function removeUser($partnerid)
     {
 
-      $request = $this->generateURL("remove-user", get_defined_vars());
-      $response = $this->callAPI($request);
+      $request = $this->generateApiCall("remove-user", get_defined_vars());
+      $response = $this->callApi($request);
       return $response;
 
     }
@@ -234,8 +234,8 @@
     public function modifyUser($partnerid, $userLogin, $userPassword, $firstName, $familyName, $email = "", $phone = "", $maxDeviceCount = 5)
     {
 
-      $request = $this->generateURL("modifyuser", get_defined_vars());
-      $response = $this->callAPI($request);
+      $request = $this->generateApiCall("modifyuser", get_defined_vars());
+      $response = $this->callApi($request);
       return $response;
 
     }
@@ -247,8 +247,8 @@
     public function getUser($partnerid)
     {
 
-      $request = $this->generateURL("getuser", get_defined_vars());
-      $response = $this->callAPI($request);
+      $request = $this->generateApiCall("getuser", get_defined_vars());
+      $response = $this->callApi($request);
       return $response;
 
     }
@@ -259,8 +259,8 @@
     public function getUsers()
     {
 
-      $request = $this->generateURL("getusers", get_defined_vars());
-      $response = $this->callAPI($request);
+      $request = $this->generateApiCall("getusers", get_defined_vars());
+      $response = $this->callApi($request);
       return $response;
 
     }
@@ -272,8 +272,8 @@
     public function getUserDevices($partnerid)
     {
 
-      $request = $this->generateURL("get-user-devices", get_defined_vars());
-      $response = $this->callAPI($request);
+      $request = $this->generateApiCall("get-user-devices", get_defined_vars());
+      $response = $this->callApi($request);
       return $response;
 
     }
@@ -286,8 +286,8 @@
     public function removeUserDevice($partnerid, $deviceid)
     {
 
-      $request = $this->generateURL("remove-user-device", get_defined_vars());
-      $response = $this->callAPI($request);
+      $request = $this->generateApiCall("remove-user-device", get_defined_vars());
+      $response = $this->callApi($request);
       return $response;
 
     }
@@ -298,8 +298,8 @@
     public function getPackages()
     {
 
-      $request = $this->generateURL("getpackages", get_defined_vars());
-      $response = $this->callAPI($request);
+      $request = $this->generateApiCall("getpackages", get_defined_vars());
+      $response = $this->callApi($request);
       return $response;
 
     }
@@ -309,11 +309,11 @@
      * @param string $package
      * @return string JSON
      */
-    public function activateUser($partnerid, $package)
+    public function activateUserPackage($partnerid, $package)
     {
 
-      $request = $this->generateURL("activate-user", get_defined_vars());
-      $response = $this->callAPI($request);
+      $request = $this->generateApiCall("activate-user", get_defined_vars());
+      $response = $this->callApi($request);
       return $response;
 
     }
@@ -323,11 +323,11 @@
      * @param string $package
      * @return string JSON
      */
-    public function deactivateUser($partnerid, $package)
+    public function deactivateUserPackage($partnerid, $package)
     {
 
-      $request = $this->generateURL("deactivate-user", get_defined_vars());
-      $response = $this->callAPI($request);
+      $request = $this->generateApiCall("deactivate-user", get_defined_vars());
+      $response = $this->callApi($request);
       return $response;
 
     }
@@ -339,12 +339,12 @@
      * @return string JSON
      * @throws \Exception
      */
-    public function addUserSTB($partnerid, $MAC, $name = "")
+    public function addUserStb($partnerid, $MAC, $name = "")
     {
 
-      $MAC = $this->formatMAC($MAC);
+      $MAC = $this->formatMac($MAC);
 
-      if(!$this->isMAC($MAC))
+      if(!$this->isMac($MAC))
       {
 
         throw new \Exception("Invalid MAC address format. Should be 00:00:00:00:00:00, is ".$MAC);
@@ -353,11 +353,25 @@
       else
       {
 
-        $request = $this->generateURL("add-user-stb", get_defined_vars());
-        $response = $this->callAPI($request);
+        $request = $this->generateApiCall("add-user-stb", get_defined_vars());
+        $response = $this->callApi($request);
         return $response;
 
       }
+
+    }
+
+    /**
+     * @param $partnerid
+     * @param $timelimit
+     * @return string JSON
+     */
+    public function setPvrTimelimit($partnerid, $timelimit)
+    {
+
+      $request = $this->generateApiCall("set-pvr-timelimit", get_defined_vars());
+      $response = $this->callApi($request);
+      return $response;
 
     }
 
