@@ -123,6 +123,15 @@
       $parameters['login'] = $this->getLogin();
       $parameters['password'] = $this->getPassword();
 
+      // Drop empty parameters
+      foreach($parameters AS $key => $value)
+      {
+        if($value == "")
+        {
+          unset($parameters[$key]);
+        }
+      }
+
       return $this->getUrl() . $action . "?" . http_build_query($parameters, null, '&', PHP_QUERY_RFC3986);
 
     }
