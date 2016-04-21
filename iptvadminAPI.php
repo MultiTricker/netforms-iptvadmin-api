@@ -199,15 +199,18 @@
 
     /**
      * @param string $partnerid
+     * @param string $userLogin
+     * @param string $userPassword
      * @param string $firstName
      * @param string $familyName
      * @param string $email
      * @param string $phone
      * @param int $maxDeviceCount
-     * @param string $package
+     * @param int|string $package
+     * @param int|string $timelimit
      * @return string JSON
      */
-    public function registerUser($partnerid, $userLogin, $userPassword, $firstName, $familyName, $email = "", $phone = "", $maxDeviceCount = 5, $package)
+    public function registerUser($partnerid, $userLogin, $userPassword, $firstName, $familyName, $email = "", $phone = "", $maxDeviceCount = 5, $package = "", $timelimit = "")
     {
 
       $request = $this->generateApiCall("registeruser", get_defined_vars());
@@ -251,9 +254,10 @@
 
     /**
      * @param string $partnerid
+     * @param string $packageoutput input values are: id,full,isOtt
      * @return string JSON
      */
-    public function getUser($partnerid)
+    public function getUser($partnerid, $packageoutput = "")
     {
 
       $request = $this->generateApiCall("getuser", get_defined_vars());
@@ -276,9 +280,10 @@
 
     /**
      * @param string $partnerid
+     * @param string $packageoutput input values are: id,full,isOtt
      * @return string JSON
      */
-    public function getUserDevices($partnerid)
+    public function getUserDevices($partnerid, $packageoutput = "")
     {
 
       $request = $this->generateApiCall("get-user-devices", get_defined_vars());
@@ -302,9 +307,10 @@
     }
 
     /**
+     * @param string $packageoutput input values are: id,full,isOtt
      * @return string JSON
      */
-    public function getPackages()
+    public function getPackages($packageoutput = "")
     {
 
       $request = $this->generateApiCall("getpackages", get_defined_vars());
@@ -379,6 +385,145 @@
     {
 
       $request = $this->generateApiCall("set-pvr-timelimit", get_defined_vars());
+      $response = $this->callApi($request);
+      return $response;
+
+    }
+
+    /**
+     * @param $partnerid
+     * @return string JSON
+     */
+    public function disableUser($partnerid)
+    {
+
+      $request = $this->generateApiCall("disable-user", get_defined_vars());
+      $response = $this->callApi($request);
+      return $response;
+
+    }
+
+    /**
+     * @param string $mac
+     * @param string $type soft (default) or hard
+     * @return string JSON
+     */
+    public function restartStb($mac, $type = "")
+    {
+
+      $request = $this->generateApiCall("restart-stb", get_defined_vars());
+      $response = $this->callApi($request);
+      return $response;
+
+    }
+
+    /**
+     * @return string JSON
+     */
+    public function getChannels()
+    {
+
+      $request = $this->generateApiCall("get-channels", get_defined_vars());
+      $response = $this->callApi($request);
+      return $response;
+
+    }
+
+    /**
+     * Use returned token to redirect user on portal:
+     * https://www.urlportalu.cz/autologin/TOKEN/
+     *
+     * @param string $partnerid
+     * @return string JSON
+     */
+    public function getAutologinToken($partnerid)
+    {
+
+      $request = $this->generateApiCall("get-channels", get_defined_vars());
+      $response = $this->callApi($request);
+      return $response;
+
+    }
+
+    /**
+     * @param string $package
+     * @return string JSON
+     */
+    public function getPackage($package)
+    {
+
+      $request = $this->generateApiCall("get-package", get_defined_vars());
+      $response = $this->callApi($request);
+      return $response;
+
+    }
+
+    /**
+     * @param string $package
+     * $param int $ott 0/1
+     * @return string JSON
+     */
+    public function addPackage($package, $ott)
+    {
+
+      $request = $this->generateApiCall("add-package", get_defined_vars());
+      $response = $this->callApi($request);
+      return $response;
+
+    }
+
+    /**
+     * @param string $package
+     * @return string JSON
+     */
+    public function removePackage($package)
+    {
+
+      $request = $this->generateApiCall("remove-package", get_defined_vars());
+      $response = $this->callApi($request);
+      return $response;
+
+    }
+
+    /**
+     * @param string $package
+     * @param string $onstb 0/1
+     * @param string $onss 0/1
+     * @param int $channelid
+     * @param int $position
+     * @return string JSON
+     */
+    public function addPackageChannel($package, $onstb, $onss, $channelid, $position)
+    {
+
+      $request = $this->generateApiCall("add-package-channel", get_defined_vars());
+      $response = $this->callApi($request);
+      return $response;
+
+    }
+
+    /**
+     * @param string $package
+     * @param $int $channelid
+     * @return string JSON
+     */
+    public function removePackageChannel($package, $channelid)
+    {
+
+      $request = $this->generateApiCall("remove-package-channel", get_defined_vars());
+      $response = $this->callApi($request);
+      return $response;
+
+    }
+
+    /**
+     * @param string $partnerid
+     * @return string JSON
+     */
+    public function generatePairCode($partnerid)
+    {
+
+      $request = $this->generateApiCall("generate-pair-code", get_defined_vars());
       $response = $this->callApi($request);
       return $response;
 
